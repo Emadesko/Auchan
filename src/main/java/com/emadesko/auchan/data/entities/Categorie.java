@@ -9,12 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Categorie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String code;
-    private String name;
+public class Categorie extends ClasseMere{
     @OneToMany(mappedBy = "categorie")
     private List<Article> articles;
 }

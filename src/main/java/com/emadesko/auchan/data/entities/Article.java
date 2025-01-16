@@ -9,12 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Article {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String code;
-    private String name;
+public class Article extends ClasseMere{
     private Float prix;
     private Integer qteStock;
     @ManyToOne
