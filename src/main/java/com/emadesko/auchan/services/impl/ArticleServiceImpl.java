@@ -6,6 +6,8 @@ import com.emadesko.auchan.data.repositories.CategorieRepository;
 import com.emadesko.auchan.services.ArticleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleServiceImpl extends ServiceImpl <Article> implements ArticleService {
 
@@ -31,5 +33,10 @@ public class ArticleServiceImpl extends ServiceImpl <Article> implements Article
             return this.articleRepository.save(art);
         }
         return null;
+    }
+
+    @Override
+    public List<Article> getArticlesByCategorie_Id(Long categorieId) {
+        return this.articleRepository.findArticlesByCategorie_Id(categorieId);
     }
 }

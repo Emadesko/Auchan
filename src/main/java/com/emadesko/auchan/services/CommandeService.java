@@ -1,4 +1,6 @@
 package com.emadesko.auchan.services;
 
-public interface CommandeService {
+import com.emadesko.auchan.data.entities.Commande;
+
+public interface CommandeService extends Service<Commande> {
 }

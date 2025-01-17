@@ -8,25 +8,25 @@ import java.util.List;
 
 public abstract class ServiceImpl <T> implements Service <T> {
 
-    private final JpaRepository<T, Long> baseRepository;
+    private final JpaRepository<T, Long> repository;
 
-    protected ServiceImpl(JpaRepository<T, Long> baseRepository) {
-        this.baseRepository = baseRepository;
+    protected ServiceImpl(JpaRepository<T, Long> repository) {
+        this.repository = repository;
     }
 
     @Override
     public T getById(Long id) {
-        return this.baseRepository.findById(id).orElse(null);
+        return this.repository.findById(id).orElse(null);
     }
 
     @Override
     public T create(T t) {
-        return  this.baseRepository.save(t);
+        return this.repository.save(t);
     }
 
     @Override
     public List<T> findAll() {
-        return this.baseRepository.findAll();
+        return this.repository.findAll();
     }
 
     @Override
@@ -34,9 +34,9 @@ public abstract class ServiceImpl <T> implements Service <T> {
 
     @Override
     public Boolean delete(Long id) {
-        var data = this.baseRepository.findById(id).orElse(null);
+        var data = this.repository.findById(id).orElse(null);
         if (data != null) {
-            this.baseRepository.delete(data);
+            this.repository.delete(data);
             return true;
         }
         return false;

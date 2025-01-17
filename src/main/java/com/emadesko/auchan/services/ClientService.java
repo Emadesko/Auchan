@@ -1,4 +1,6 @@
 package com.emadesko.auchan.services;
 
-public interface ClientService {
+import com.emadesko.auchan.data.entities.Client;
+
+public interface ClientService extends Service<Client> {
 }

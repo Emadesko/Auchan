@@ -10,9 +10,9 @@ public class CategorieServiceImpl extends ServiceImpl <Categorie> implements Cat
 
     private final CategorieRepository categorieRepository;
 
-    public CategorieServiceImpl(CategorieRepository categorieRepository, CategorieRepository categorieRepository1) {
+    public CategorieServiceImpl(CategorieRepository categorieRepository) {
         super(categorieRepository);
-        this.categorieRepository = categorieRepository1;
+        this.categorieRepository = categorieRepository;
     }
 
     @Override
