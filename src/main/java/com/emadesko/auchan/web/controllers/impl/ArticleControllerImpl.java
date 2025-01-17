@@ -62,7 +62,10 @@ public class ArticleControllerImpl implements ArticleController {
     }
 
     @Override
-    public ResponseEntity<Boolean> deleteArticle(Long id) {
-        return new ResponseEntity<>(this.articleService.delete(id), HttpStatus.OK);
+    public ResponseEntity<String> deleteArticle(Long id) {
+        if (this.articleService.delete(id)){
+            return new ResponseEntity<>("Article supprimé avec succes", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Article non retrouvé", HttpStatus.OK);
     }
 }

@@ -22,5 +22,5 @@ public interface CategorieController {
     ResponseEntity<CategorieResponse> updateCategorie(@PathVariable Long id, @RequestBody CategorieRequest categorieRequest);
 
     @PostMapping("/delete/{id}")
-    ResponseEntity<Boolean> deleteCategorie(@PathVariable Long id);
+    ResponseEntity<String> deleteCategorie(@PathVariable Long id);
 }

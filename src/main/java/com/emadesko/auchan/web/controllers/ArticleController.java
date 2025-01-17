@@ -25,5 +25,5 @@ public interface ArticleController {
     ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest articleRequest);
 
     @PostMapping("/delete/{id}")
-    ResponseEntity<Boolean> deleteArticle(@PathVariable Long id);
+    ResponseEntity<String> deleteArticle(@PathVariable Long id);
 }

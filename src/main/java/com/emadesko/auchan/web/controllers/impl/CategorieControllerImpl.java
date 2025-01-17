@@ -55,7 +55,10 @@ public class CategorieControllerImpl implements CategorieController {
     }
 
     @Override
-    public ResponseEntity<Boolean> deleteCategorie(Long id) {
-        return new ResponseEntity<>(this.categorieService.delete(id), HttpStatus.OK);
+    public ResponseEntity<String> deleteCategorie(Long id) {
+        if (this.categorieService.delete(id)){
+            return new ResponseEntity<>("Categorie supprimé avec succes", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Categorie non retrouvé", HttpStatus.OK);
     }
 }
