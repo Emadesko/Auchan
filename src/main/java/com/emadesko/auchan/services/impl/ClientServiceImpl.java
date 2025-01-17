@@ -1,26 +1,26 @@
 package com.emadesko.auchan.services.impl;
 
-import com.emadesko.auchan.data.entities.Article;
-import com.emadesko.auchan.data.repositories.ArticleRepository;
-import com.emadesko.auchan.services.ArticleService;
+import com.emadesko.auchan.data.entities.Client;
+import com.emadesko.auchan.data.repositories.ClientRepository;
+import com.emadesko.auchan.services.ClientService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ArticleServiceImpl extends ServiceImpl <Article> implements ArticleService {
+public class ClientServiceImpl extends ServiceImpl <Client> implements ClientService {
 
-    private ArticleRepository articleRepository;
+    private final ClientRepository clientRepository;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
-        super(articleRepository);
+    public ClientServiceImpl(ClientRepository clientRepository) {
+        super(clientRepository);
+        this.clientRepository = clientRepository;
     }
 
     @Override
-    public Article update(Long id, Article article) {
-        var art = articleRepository.findById(id).orElse(null);
-        if (art != null) {
-            art.setName(article.getName());
-            art.setCode(article.getCode());
-            return this.articleRepository.save(art);
+    public Client update(Long id, Client client) {
+        var cl = this.clientRepository.findById(id).orElse(null);
+        if (cl != null) {
+            cl.setNomComplet(client.getNomComplet());
+            return this.clientRepository.save(cl);
         }
         return null;
     }

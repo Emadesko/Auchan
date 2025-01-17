@@ -1,32 +1,36 @@
 package com.emadesko.auchan.services.impl;
 
-import com.emadesko.auchan.data.entities.Commande;
-import com.emadesko.auchan.data.repositories.ClientRepository;
+import com.emadesko.auchan.data.entities.Detail;
+import com.emadesko.auchan.data.repositories.ArticleRepository;
 import com.emadesko.auchan.data.repositories.CommandeRepository;
-import com.emadesko.auchan.services.CommandeService;
+import com.emadesko.auchan.data.repositories.DetailRepository;
+import com.emadesko.auchan.services.DetailService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommandeServiceImpl extends ServiceImpl <Commande> implements CommandeService {
+public class DetailServiceImpl extends ServiceImpl <Detail> implements DetailService {
 
+    private final DetailRepository detailRepository;
     private final CommandeRepository commandeRepository;
-    private final ClientRepository clientRepository;
+    private final ArticleRepository articleRepository;
 
-    public CommandeServiceImpl(CommandeRepository commandeRepository, ClientRepository clientRepository) {
-        super(commandeRepository);
+    public DetailServiceImpl(DetailRepository detailRepository, CommandeRepository commandeRepository, ArticleRepository articleRepository) {
+        super(detailRepository);
+        this.detailRepository = detailRepository;
         this.commandeRepository = commandeRepository;
-        this.clientRepository = clientRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
-    public Commande update(Long id, Commande commande) {
-        var cmd = this.commandeRepository.findById(id).orElse(null);
-        var cl = this.clientRepository.findById(commande.getClient().getId()).orElse(null);
-        if (cmd != null && cl != null) {
-            cmd.setCode(commande.getCode());
-            cmd.setMontant(commande.getMontant());
-            cmd.setClient(cl);
-            return this.commandeRepository.save(cmd);
+    public Detail update(Long id, Detail detail) {
+        var dtl = this.detailRepository.findById(id).orElse(null);
+        var cmd = this.commandeRepository.findById(detail.getCommande().getId()).orElse(null);
+        var art = this.articleRepository.findById(detail.getArticle().getId()).orElse(null);
+        if (dtl != null && cmd != null && art != null) {
+            dtl.setQteCmd(detail.getQteCmd());
+            dtl.setArticle(detail.getArticle());
+            dtl.setCommande(cmd);
+            return this.detailRepository.save(dtl);
         }
         return null;
     }

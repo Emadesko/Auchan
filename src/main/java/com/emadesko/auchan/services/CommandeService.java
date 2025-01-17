@@ -1,4 +1,4 @@
 package com.emadesko.auchan.services;
 
-public interface CategorieService {
+public interface CommandeService {
 }

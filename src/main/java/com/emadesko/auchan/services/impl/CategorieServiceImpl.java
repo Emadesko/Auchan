@@ -1,41 +1,28 @@
 package com.emadesko.auchan.services.impl;
 
-import com.emadesko.auchan.data.repositories.Repository;
-import com.emadesko.auchan.services.Service;
-import lombok.RequiredArgsConstructor;
+import com.emadesko.auchan.data.entities.Categorie;
+import com.emadesko.auchan.data.repositories.CategorieRepository;
+import com.emadesko.auchan.services.CategorieService;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+public class CategorieServiceImpl extends ServiceImpl <Categorie> implements CategorieService {
 
-@RequiredArgsConstructor
-public abstract class ServiceImpl <T> implements Service <T> {
+    private final CategorieRepository categorieRepository;
 
-    private final Repository<T> repository;
-
-    @Override
-    public T getById(Long id) {
-        return this.repository.findById(id).orElse(null);
+    public CategorieServiceImpl(CategorieRepository categorieRepository, CategorieRepository categorieRepository1) {
+        super(categorieRepository);
+        this.categorieRepository = categorieRepository1;
     }
 
     @Override
-    public T create(T t) {
-        return  this.repository.save(t);
-    }
-
-    @Override
-    public List<T> findAll() {
-        return this.repository.findAll();
-    }
-
-    @Override
-    public abstract T update(Long id, T t) ;
-
-    @Override
-    public Boolean delete(Long id) {
-        var data = this.repository.findById(id).orElse(null);
-        if (data != null) {
-            this.repository.delete(data);
-            return true;
+    public Categorie update(Long id, Categorie categorie) {
+        var cat = this.categorieRepository.findById(id).orElse(null);
+        if (cat != null) {
+            cat.setName(categorie.getName());
+            cat.setCode(categorie.getCode());
+            return this.categorieRepository.save(cat);
         }
-        return false;
+        return null;
     }
 }
