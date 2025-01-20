@@ -1,23 +1,15 @@
 package com.emadesko.auchan.data.mock;
 
-import com.emadesko.auchan.data.entities.Article;
-import com.emadesko.auchan.data.entities.Categorie;
 import com.emadesko.auchan.data.entities.Client;
 import com.emadesko.auchan.data.entities.Commande;
-import com.emadesko.auchan.data.repositories.ArticleRepository;
-import com.emadesko.auchan.data.repositories.CategorieRepository;
 import com.emadesko.auchan.services.ClientService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-@Component
+//@Component
 @Order(2)
 public class ClientMock implements CommandLineRunner {
 
@@ -51,7 +43,6 @@ public class ClientMock implements CommandLineRunner {
             }
             clientService.create(c);
         }
-        // Sauvegarder toutes les catégories
     }
 
     private String generatePhoneNumber(Random random, String[] prefixes) {

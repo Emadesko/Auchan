@@ -21,7 +21,9 @@ public interface ClientController {
     ResponseEntity<Map<String , Object>> getOneClient(@PathVariable Long id);
 
     @GetMapping("{id}/commandes")
-    ResponseEntity<Map<String , Object>> getOneClientWithCommmande(@PathVariable Long id);
+    ResponseEntity<Map<String , Object>> getOneClientWithCommmande(@PathVariable Long id,
+                   @RequestParam( defaultValue = "1") int page,
+                   @RequestParam( defaultValue = "2") int size);
 
     @PostMapping("")
     ResponseEntity<Map<String , Object>> createClient(@Valid  @RequestBody ClientRequest clientRequest, BindingResult bindingResult);

@@ -4,6 +4,8 @@ import com.emadesko.auchan.data.entities.Commande;
 import com.emadesko.auchan.data.repositories.ClientRepository;
 import com.emadesko.auchan.data.repositories.CommandeRepository;
 import com.emadesko.auchan.services.CommandeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +31,10 @@ public class CommandeServiceImpl extends ServiceImpl <Commande> implements Comma
             return this.commandeRepository.save(cmd);
         }
         return null;
+    }
+
+    @Override
+    public Page<Commande> getCommandeByClient_Id(Long clientId, Pageable pageable) {
+        return commandeRepository.findCommandeByClient_Id(clientId, pageable);
     }
 }

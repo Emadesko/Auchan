@@ -1,7 +1,10 @@
 package com.emadesko.auchan.data.repositories;
 
 import com.emadesko.auchan.data.entities.Commande;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
+    Page<Commande> findCommandeByClient_Id(Long clientId, Pageable pageable);
 }

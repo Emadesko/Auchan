@@ -1,6 +1,7 @@
 package com.emadesko.auchan.web.controllers.impl;
 
 import com.emadesko.auchan.services.ClientService;
+import com.emadesko.auchan.services.CommandeService;
 import com.emadesko.auchan.web.controllers.ClientController;
 import com.emadesko.auchan.web.dto.request.ClientRequest;
 import com.emadesko.auchan.web.dto.request.ClientWithCommandeRequest;
@@ -21,9 +22,11 @@ import java.util.Map;
 @RestController
 public class ClientControllerImpl implements ClientController {
     private final ClientService clientService;
+    private final CommandeService commandeService;
 
-    public ClientControllerImpl(ClientService clientService) {
+    public ClientControllerImpl(ClientService clientService, CommandeService commandeService) {
         this.clientService = clientService;
+        this.commandeService = commandeService;
     }
 
 
@@ -38,7 +41,7 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> getOneClientWithCommmande(Long id) {
+    public ResponseEntity<Map<String, Object>> getOneClientWithCommmande(Long id, int page , int size) {
         var client = clientService.getById(id);
         Map<String , Object> map = new HashMap<>();
         if (client == null) {
@@ -50,9 +53,11 @@ public class ClientControllerImpl implements ClientController {
                     ),
                     HttpStatus.NOT_FOUND);
         }else {
-            var commandes = client.getCommandes();
+            Pageable pageable = PageRequest.of(page - 1, size);
+            var commandes = commandeService.getCommandeByClient_Id(client.getId(),pageable);
+            var commandesResponse = commandes.map(CommandeResponse::new);
             map.put("client", new ClientResponse(client));
-            map.put("commandes", commandes.stream().map(CommandeResponse::new));
+            map.put("commandes", RequestResponse.response(HttpStatus.OK,commandesResponse,"CommandeResponse"));
             return new ResponseEntity<>(RequestResponse.response(
                     HttpStatus.OK,
                     map,
