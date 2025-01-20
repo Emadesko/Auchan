@@ -4,6 +4,9 @@ import com.emadesko.auchan.services.ArticleService;
 import com.emadesko.auchan.web.controllers.ArticleController;
 import com.emadesko.auchan.web.dto.request.ArticleRequest;
 import com.emadesko.auchan.web.dto.response.ArticleResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,16 +22,18 @@ public class ArticleControllerImpl implements ArticleController {
     }
 
     @Override
-    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
-        var articles = this.articleService.findAll();
-        List<ArticleResponse> articleResponses = articles.stream().map(ArticleResponse::new).toList();
+    public ResponseEntity<Page<ArticleResponse>> getAllArticles(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        var articles = this.articleService.findAll(pageable);
+        Page<ArticleResponse> articleResponses = articles.map(ArticleResponse::new);
         return new ResponseEntity<>(articleResponses, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<ArticleResponse>> getArticlesByCategorie(Long categorieId) {
-        var articles = this.articleService.getArticlesByCategorie_Id(categorieId);
-        List<ArticleResponse> articleResponses = articles.stream().map(ArticleResponse::new).toList();
+    public ResponseEntity<Page<ArticleResponse>> getArticlesByCategorie(Long categorieId,int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        var articles = this.articleService.getArticlesByCategorie_Id(categorieId,pageable);
+        Page<ArticleResponse> articleResponses = articles.map(ArticleResponse::new);
         return new ResponseEntity<>(articleResponses, HttpStatus.OK);
     }
 

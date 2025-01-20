@@ -4,6 +4,9 @@ import com.emadesko.auchan.services.CategorieService;
 import com.emadesko.auchan.web.controllers.CategorieController;
 import com.emadesko.auchan.web.dto.request.CategorieRequest;
 import com.emadesko.auchan.web.dto.response.CategorieResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +22,10 @@ public class CategorieControllerImpl implements CategorieController {
     }
 
     @Override
-    public ResponseEntity<List<CategorieResponse>> getAllCategories() {
-        var categories = this.categorieService.findAll();
-        List<CategorieResponse> categorieResponses = categories.stream().map(CategorieResponse::new).toList();
+    public ResponseEntity<Page<CategorieResponse>> getAllCategories(int page , int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        var categories = this.categorieService.findAll(pageable);
+        Page<CategorieResponse> categorieResponses = categories.map(CategorieResponse::new);
         return new ResponseEntity<>(categorieResponses, HttpStatus.OK);
     }
 

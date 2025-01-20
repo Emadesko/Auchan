@@ -1,6 +1,8 @@
 package com.emadesko.auchan.services.impl;
 
 import com.emadesko.auchan.services.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -27,6 +29,11 @@ public abstract class ServiceImpl <T> implements Service <T> {
     @Override
     public List<T> findAll() {
         return this.repository.findAll();
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 
     @Override

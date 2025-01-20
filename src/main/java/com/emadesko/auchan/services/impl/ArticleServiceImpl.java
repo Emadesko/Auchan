@@ -4,6 +4,8 @@ import com.emadesko.auchan.data.entities.Article;
 import com.emadesko.auchan.data.repositories.ArticleRepository;
 import com.emadesko.auchan.data.repositories.CategorieRepository;
 import com.emadesko.auchan.services.ArticleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +40,10 @@ public class ArticleServiceImpl extends ServiceImpl <Article> implements Article
     @Override
     public List<Article> getArticlesByCategorie_Id(Long categorieId) {
         return this.articleRepository.findArticlesByCategorie_Id(categorieId);
+    }
+
+    @Override
+    public Page<Article> getArticlesByCategorie_Id(Long categorieId, Pageable pageable) {
+        return this.articleRepository.findArticlesByCategorie_Id(categorieId, pageable);
     }
 }
