@@ -1,24 +1,26 @@
-package com.emadesko.auchan.data.entities;
+package com.emadesko.auchan.web.dto.response;
 
-import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.emadesko.auchan.data.entities.Client;
+import jakarta.persistence.Column;
 
-@Entity
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientResponse {
+
     private Long id;
-    @Column(nullable = false)
     private String nomComplet;
-    @Column(unique = true, nullable = false)
     private String telephone;
     private String pays;
     private String ville;
     private String rue;
-    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
-    private List<Commande> commandes = new ArrayList<>();
+
+    public ClientResponse(Client client) {
+        this.id = client.getId();
+        this.nomComplet = client.getNomComplet();
+        this.telephone = client.getTelephone();
+        this.pays = client.getPays();
+        this.ville = client.getVille();
+        this.rue = client.getRue();
+    }
 
     public Long getId() {
         return id;
@@ -66,13 +68,5 @@ public class Client {
 
     public void setRue(String rue) {
         this.rue = rue;
-    }
-
-    public List<Commande> getCommandes() {
-        return commandes;
-    }
-
-    public void setCommandes(List<Commande> commandes) {
-        this.commandes = commandes;
     }
 }

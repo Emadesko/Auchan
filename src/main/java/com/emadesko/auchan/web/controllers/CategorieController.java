@@ -19,7 +19,7 @@ public interface CategorieController {
     @GetMapping("{id}")
     ResponseEntity<CategorieResponse> getOneCategorie(@PathVariable Long id);
 
-    @PostMapping("/create")
+    @PostMapping("")
     ResponseEntity<CategorieResponse> createCategorie(@RequestBody CategorieRequest categorieRequest);
 
     @PutMapping("{id}")

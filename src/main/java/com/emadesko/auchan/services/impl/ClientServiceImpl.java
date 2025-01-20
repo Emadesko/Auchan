@@ -3,9 +3,11 @@ package com.emadesko.auchan.services.impl;
 import com.emadesko.auchan.data.entities.Client;
 import com.emadesko.auchan.data.repositories.ClientRepository;
 import com.emadesko.auchan.services.ClientService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ClientServiceImpl extends ServiceImpl <Client> implements ClientService {
 
     private final ClientRepository clientRepository;
